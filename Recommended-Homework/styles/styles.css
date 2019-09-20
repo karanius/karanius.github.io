@@ -329,7 +329,7 @@ footer p{
     }
     
     
-    @media screen and (max-width: 380px){
+    @media screen and (max-width: 450px){
 
         nav{
             overflow-x: hidden; 
