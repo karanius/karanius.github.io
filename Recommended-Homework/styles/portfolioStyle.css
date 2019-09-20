@@ -23,7 +23,6 @@ img:hover{
 }
 
 .container .asli:hover{
-    /* transform: scale(1); */
     box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.507);
     border-radius: 20%;
 }
@@ -46,12 +45,17 @@ img:hover{
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: background-color 1s;    
+    transition: background-color 1s, display 1s;    
 }
 
 .label:hover{
     color: rgba(238, 232, 170, 0);
     background-color: #4aaaa500;
+}
+
+
+.label:hover p{
+    display: none;
 }
 
 
@@ -63,6 +67,8 @@ img:hover{
 @media screen and (max-width: 719px ){
     .container{
         justify-content: center;
+        padding-bottom: 30px;
     }
 
 }
+
