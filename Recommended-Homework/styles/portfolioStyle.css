@@ -72,3 +72,11 @@ img:hover{
 
 }
 
+@media screen and (min-width: 719px ){
+    .container{
+        padding-bottom: 30px;
+    }
+
+}
+
+
