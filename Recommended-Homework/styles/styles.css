@@ -61,13 +61,15 @@ nav{
 .navBarContainer{
     display: flex;
     justify-content: space-between;
-    position: relative;
-    height: 70px;;
+    height: 100px;
     background-color: white;
     min-width: 960px;
     overflow: hidden;
 }
 
+.navBarContainer .navLinks {
+    margin-top: 15px;
+}
 
 
 

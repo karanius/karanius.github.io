@@ -1,0 +1,170 @@
+*{
+    box-sizing: border-box;
+}
+body{
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;    
+    color: white;
+    width: 100vw;
+    height: 100vh;
+    border: 3px solid red;
+}
+
+.version{
+    font-size: 2vw;
+    opacity: 0.5;
+    
+}
+
+.dot{
+    background: rgba(0, 0, 255, 0.996);
+box-shadow: 
+}
+.gameContainer{
+    display: flex;
+    border: 2px solid green;
+    width: 90%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+
+.welcome{
+    font-size: 2em;
+}
+
+
+
+
+/* .intro{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+    padding-bottom: 100px;
+    animation: fadeInIntro;
+    animation-duration: 10s;
+    animation-delay: 1s;
+    animation-fill-mode: forwards;
+} */
+
+
+
+
+
+
+
+/* 
+
+
+
+@keyframes fadeInIntro {
+    0{
+        box-shadow: 0 0 10px 10px  rgba(0, 0, 255, 0);
+        background-color: rgba(0, 0, 255, 0);
+    }
+    100%{
+        box-shadow: 0 0 200px 200px  rgba(0, 0, 255, 0.363);
+        background-color: rgba(0, 0, 255, 0.363);
+    }
+}
+
+
+.intro .qq {
+    background-color: hsl(226, 97%, 36%);
+    width: 30%;
+    height: 30%;
+    border-radius: 5%; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 50px;
+    transition: background-color 0.3s, transform 0.2s;    
+}
+
+
+.intro .qq:hover {
+    background-color: hsl(226, 97%, 50%);
+    box-shadow: 0 0 10px 1px rgb(15, 74, 236);
+}
+
+.intro .qq:active{
+    transform: scale(0.9);
+}
+
+
+.intro #choiceGrid{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+#choiceGrid{
+    display: flex;
+    width: 300px;
+}
+
+#container{
+    width: 300px;
+    height: 300px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5%;
+}
+
+#container #grid{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    padding-top: 10px;
+}
+
+#grid .q {
+    background-color: hsl(226, 97%, 36%);
+    width: 30%;
+    height: 30%;
+    border-radius: 5%; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 50px;
+    transition: background-color 0.3s, transform 0.2s;    
+}
+
+
+#grid .q:hover {
+    background-color: hsl(226, 97%, 50%);
+    box-shadow: 0 0 10px 1px rgb(15, 74, 236);
+}
+
+
+#grid .q:active {
+    transform: scale(0.90);
+}
+
+
+#grid #q1, #grid #q2, #grid #q3 {
+    margin-bottom: 9px solid blueviolet;
+}
+ */
