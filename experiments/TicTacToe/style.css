@@ -38,10 +38,12 @@ body{
 .game{
     grid-row: 3/4;
     grid-column: 2/3 ;
-
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
 }
+
 
 
 .table{
@@ -50,9 +52,24 @@ body{
     background:gray;
     display: grid;
     grid-template-rows: 1fr 1fr 1fr;
-    grid-template-columns: 1fr 1fr 1fr;   
+    grid-template-columns: 1fr 1fr 1fr; 
+    margin-top:20px;  
     border: 3px solid black; 
 }
+
+.table:hover{
+    animation-name: tableHov;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes tableHov{ 
+    100%{
+        transform: scale(1.1);
+    }
+}
+
+
 
 .box{
     border: 3px solid black;
@@ -61,6 +78,22 @@ body{
 
 .box:hover{
     background-color: rgba(73, 73, 73, 0.356);
+    border-radius: 10%;
+}
+
+.box:active{
+    animation-name: hov;
+    animation-duration: 0.3s;
+    animation-iteration-count: 1;
+    animation-direction: alternate;        
+}
+
+@keyframes hov {
+    100%{
+        background-color: rgba(73, 73, 73, 0.356);
+        transform:scale(0.07);
+        border-radius: 100%;
+    }
 }
 
 
