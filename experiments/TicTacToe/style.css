@@ -74,6 +74,10 @@ body{
 .box{
     border: 3px solid black;
     background-color: rgb(73, 73, 73);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 200%;
 }
 
 .box:hover{
