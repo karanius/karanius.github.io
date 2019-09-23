@@ -19,12 +19,14 @@ body{
 }
 
 .dot{
-    background: rgba(0, 0, 255, 0.996);
-box-shadow: 
+
 }
+
+
+
 .gameContainer{
     display: flex;
-    border: 2px solid green;
+    /* border: 2px solid green; */
     width: 90%;
     margin-top: 5%;
     margin-bottom: 5%;
@@ -32,6 +34,7 @@ box-shadow:
     justify-content: center;
     align-items: center;
     text-align: center;
+    background: radial-gradient(rgb(1, 1, 187),black) 
 }
 
 

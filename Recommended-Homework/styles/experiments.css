@@ -7,20 +7,23 @@ body{
 
 .container{
     display:flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
-    flex-wrap: wrap;
     width: 60%;
     height: 60%;
 
 
 }
+
 .ex{
-    width: 100px;
-    height: 100px;
+    width: auto;
+    height: auto;
     background-color: lightcoral;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     margin: 10px;
+    padding-bottom: 10px;
 }
+
