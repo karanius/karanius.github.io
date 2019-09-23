@@ -9,8 +9,23 @@ function init (){
     const resetButtons = document.querySelectorAll('button');
 
 
+    // const b0 = boxes[0].addEventListener('DOMSubtreeModified', compTurn)
+    // boxes[1].addEventListener('DOMSubtreeModified', compTurn)
+    // boxes[2].addEventListener('DOMSubtreeModified', compTurn)
+    // boxes[3].addEventListener('DOMSubtreeModified', compTurn)
+    // boxes[4].addEventListener('DOMSubtreeModified', compTurn)
+    // boxes[5].addEventListener('DOMSubtreeModified', compTurn)
+    // boxes[6].addEventListener('DOMSubtreeModified', compTurn)
+    // boxes[7].addEventListener('DOMSubtreeModified', compTurn)
+    // boxes[8].addEventListener('DOMSubtreeModified', compTurn)
+
+
+
 
     function reset(){
+
+       
+
         turn = 'x';
         // this is all the winning posibilities
         wins = [
@@ -65,15 +80,15 @@ function init (){
 
     function ticMiddle(){
         console.log('middle')
-        setTimeout(()=>{boxes[4].innerHTML = 'O'; switchTurn(); listenerEnabler(); return false},1500);
+        setTimeout(()=>{boxes[4].innerHTML = 'O'; switchTurn(); listenerEnabler(); return},1500);
     }
 
     function ticCorner(boxes){
         console.log('corner')
         let random = Math.floor(Math.random() * Math.floor(4))
         let corners = [0,2,6,8]
-        let ticCornerTime = setTimeout(()=>{boxes[corners[random]].innerHTML = 'O'; switchTurn(); listenerEnabler(); },1500);
-        // debugger()
+        // let ticCornerTime = setTimeout(()=>{boxes[corners[random]].innerHTML = 'O'; switchTurn(); listenerEnabler(); },1500);
+
     }
     
     function ticAnyFree(){
@@ -162,14 +177,42 @@ function init (){
         }
     }
 
-    function listenerDisabler(){
+
+    var listenerDisabler = () => {
         boxes.forEach(box=>box.removeEventListener('click',addMark));
     }
     
+    // function marker(e){
+        // console.log(e)
+        // if (e.path[0].innerHTML==='') {
+            // e.path[0].innerHTML = turn.toUpperCase();
+        // } else {
+            // alert('You cant mark here');
+        // }
+// }
+
+    // const enabler = () =>{
+        // boxes.forEach(box=>box.addEventListener('click',marker))
+    // }
+
+    // const desabler = () => {
+        // boxes.forEach(box=>box.removeEventListener('click',marker))
+    // }
+
+
+
+
     const listenerEnabler=() => boxes.forEach(box=>box.addEventListener('click',addMark))
-    reset()
+    
+    
+    reset();
     listenerEnabler()
+    // enabler();
+    // addMark()
+
 };
 
 
 init();
+
+
