@@ -103,6 +103,42 @@ body{
 
 
 .version{
+    margin-top: 5%;
     grid-row: 4/5;
     grid-column: 2/3;
+}
+
+
+
+.card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 50px;
+    width: 6em;
+    height: 7.5em;
+    background-color: rgb(10, 110, 110);
+    position: absolute;
+    opacity: 0.90;
+    box-shadow: 0 0 10px 2px black;
+    border-radius: 10%;
+    text-shadow: 2px 2px rgb(116, 105, 105);
+} 
+
+.button{
+    font-size: 30px;
+    border:none;
+    border-radius: 10%;
+    background-color: black;
+    color: white;
+    box-shadow: 0 0 10px 1px rgb(102, 70, 70);
+}
+
+.winCard{
+    display: none;
+}
+
+.loseCard{
+    display: none;
 }
