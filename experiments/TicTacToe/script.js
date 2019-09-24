@@ -12,19 +12,6 @@
 
 
 
-    
-
-
-
-    
-
-    // function blockOrWin(){
-        // console.log('block Or Win detected')
-        // switchTurn();
-    // }
-
-
-
 
 
 
@@ -101,6 +88,8 @@
 
 const init = function(){
 
+    let playerSign;
+    let computerSign;
     let turn;
     let wins;
     const boxes = document.querySelectorAll('.box');
@@ -109,6 +98,8 @@ const init = function(){
     const resetButtons = document.querySelectorAll('button');
 
     const reset = function (){
+        playerSign = 'x';
+        computerSign = 'o'
         turn = 'x';
         wins = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
         boxes.forEach(box=>box.innerHTML = '');
@@ -118,7 +109,7 @@ const init = function(){
     }
 
     const switchTurn = function (){
-        turn === 'x' ? turn ='o' : turn='x';
+        turn === playerSign ? turn =computerSign : turn=playerSign;
     }
 
     const writeOnTable = function(e){
@@ -145,54 +136,36 @@ const init = function(){
         }
     }
 
+    const winOrBlock = function(e,winsList, win){
+        let theEmptySquare = win.filter((box)=>(typeof box === typeof 1))
+        let playersign = win.filter((box)=>(typeof box === typeof 'x'))
+        console.log(theEmptySquare)
+        console.log(playersign)
 
+    }
 
     const computerTurn = function(e,wins) {
         // loop around all the boxes and...
         for (i=0; i<wins.length; i++ ){
         // 01. look for a winner:
-        if(wins[i][0]===wins[i][1] && wins[i][1] === wins[i][2]){
-            lookForWinner(wins[i][1])
-        }
+            if(wins[i][0]===wins[i][1] && wins[i][1] === wins[i][2]){
+                lookForWinner(wins[i][1])
+                // 02. try to win if possible, if not, block: if about to lose
+            } else if (wins[i][0] === wins[i][1] || 
+                        wins[i][0] === wins[i][2] ||
+                        wins[i][1] === wins[i][2]){
+                            winOrBlock(e,wins,wins[i])
+            }
             
+            
+
+
         }
+
+
     }
 
 
-
-    // function chooseBox(e,boxes,wins){
-
-    //     
-
-                    // console.log(e)
-        // console.log(wins[i][0])
-        // console.log(wins[i][0] === wins[i][1])       
-        // console.log(wins[i][1] === wins[i][2])
-
-
-
-            // if (wins[i][0] === wins[i][1] && wins[i][1] === wins[i][2]){
-                // winner(wins[i][0]);
-            // return false;
-        // }
-
-        
-    // }
-
-
-
-
-
-        // return false;
-    // }
-            // ??????
-
-
-
-
-            // 2 and 3 can be combined together !!!!!!!!!!!!!!!
-            //  02. look out! do not lose, BLOCK!
-            //  0.3 check to Selection, if you can win!
             // else if (
             //     wins[i][0] === wins[i][1] || 
             //     wins[i][0] === wins[i][2] ||
