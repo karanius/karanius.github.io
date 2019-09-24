@@ -9,18 +9,6 @@ function init (){
     const resetButtons = document.querySelectorAll('button');
 
 
-    // const b0 = boxes[0].addEventListener('DOMSubtreeModified', compTurn)
-    // boxes[1].addEventListener('DOMSubtreeModified', compTurn)
-    // boxes[2].addEventListener('DOMSubtreeModified', compTurn)
-    // boxes[3].addEventListener('DOMSubtreeModified', compTurn)
-    // boxes[4].addEventListener('DOMSubtreeModified', compTurn)
-    // boxes[5].addEventListener('DOMSubtreeModified', compTurn)
-    // boxes[6].addEventListener('DOMSubtreeModified', compTurn)
-    // boxes[7].addEventListener('DOMSubtreeModified', compTurn)
-    // boxes[8].addEventListener('DOMSubtreeModified', compTurn)
-
-
-
 
     function reset(){
 
@@ -49,11 +37,13 @@ function init (){
 
     function switchTurn(){
         turn === 'x' ? turn ='o' : turn='x';
+        console.log('turn now is: '+turn)
     }
 
 
 
     function assignTurn(wins,e){
+        console.log(turn,'ass')
         for (i=0; i<wins.length; i++ ){
             for (b=0; b<wins[i].length; b++){
                 if (wins[i][b] === Number(e.path[0]['id'][3])) {
@@ -78,22 +68,31 @@ function init (){
         switchTurn();
     }
 
-    function ticMiddle(){
-        console.log('middle')
-        setTimeout(()=>{boxes[4].innerHTML = 'O'; switchTurn(); listenerEnabler(); return},1500);
+
+
+
+
+
+  
+
+
+
+
+    function ticMiddle(wins,e){
+        setTimeout(()=>{switchTurn(),console.log('after '+turn),assignTurn(wins,e,turn), boxes[4].innerHTML = turn.toUpperCase(); switchTurn() ; listenerEnabler(); return},1500);
     }
 
     function ticCorner(boxes){
         console.log('corner')
         let random = Math.floor(Math.random() * Math.floor(4))
         let corners = [0,2,6,8]
-        // let ticCornerTime = setTimeout(()=>{boxes[corners[random]].innerHTML = 'O'; switchTurn(); listenerEnabler(); },1500);
+        setTimeout(()=>{boxes[corners[random]].innerHTML = 'O'; listenerEnabler(); },1500);
 
     }
     
-    function ticAnyFree(){
-        console.log('ticAny detected')
-        switchTurn();
+    function ticAnyFree(boxes){
+        console.log(boxes)
+        // setTimeout(()=>{boxes[corners[random]].innerHTML = 'O'; switchTurn(); listenerEnabler(); },1500);
     }
 
 
@@ -113,11 +112,11 @@ function init (){
 
     function chooseBox(wins,e,boxes){
         for (i=0; i<wins.length; i++ ){
-
+            console.log(wins)
             // 01. look for a winner:
             if (wins[i][0] === wins[i][1] && wins[i][1] === wins[i][2]){
                 winner(wins[i][0]);
-                return false;
+                // return false;
             }
 
 
@@ -135,7 +134,7 @@ function init (){
 
                 // 04. if middle is free, GET IT!
             else if (typeof wins[1][1] === typeof 1){
-                    ticMiddle()
+                    ticMiddle(wins,e)
                 }
 
             
@@ -152,16 +151,16 @@ function init (){
             else{
                 console.log('here')
                 if (isFree() === true){
-                    ticAnyFree()
+                    ticAnyFree(boxes)
                 } else{
                     reset()
                 }
             }
+            return false;
         }
     }
 
     function compTurn(e,boxes){
-        assignTurn(wins,e);
         chooseBox(wins,e,boxes);
     };
 
@@ -171,6 +170,7 @@ function init (){
         if (e.path[0].innerHTML==='') {
             e.path[0].innerHTML = turn.toUpperCase();
             listenerDisabler()
+            assignTurn(wins,e);    
             compTurn(e,boxes);
         } else {
             alert('You cant mark here');
@@ -181,24 +181,6 @@ function init (){
     var listenerDisabler = () => {
         boxes.forEach(box=>box.removeEventListener('click',addMark));
     }
-    
-    // function marker(e){
-        // console.log(e)
-        // if (e.path[0].innerHTML==='') {
-            // e.path[0].innerHTML = turn.toUpperCase();
-        // } else {
-            // alert('You cant mark here');
-        // }
-// }
-
-    // const enabler = () =>{
-        // boxes.forEach(box=>box.addEventListener('click',marker))
-    // }
-
-    // const desabler = () => {
-        // boxes.forEach(box=>box.removeEventListener('click',marker))
-    // }
-
 
 
 
@@ -207,8 +189,6 @@ function init (){
     
     reset();
     listenerEnabler()
-    // enabler();
-    // addMark()
 
 };
 
