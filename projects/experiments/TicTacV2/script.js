@@ -23,10 +23,10 @@ const init = () => {
     const writeToGameTable =(event) => {
         if (event.nodeName === 'DIV'){
             event.innerHTML = turn.toUpperCase();
-            enabler()
+            // enabler()
         }else{
             event.path[0].innerHTML = turn.toUpperCase();
-            enabler()
+            // enabler()
         };
         
     };
@@ -251,17 +251,34 @@ const init = () => {
 
 
     const noFreeBox = () =>{
+        let count = 0;
         for (i=0;i<boxes.length;i++) {
-            if(boxes[i].innerHTML === ''){
-                console.log('free Space is left')
-                return false;
-            } else{
-                console.log('NO Space')
-                return true;
+            if(boxes[i].innerHTML !== ''){
+                count++
             }
         }
+        if (count !== 9) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    const takeRandomFreeBox = () =>{
+        console.log('!!!!!!!')
     }
     
+    const reseter = ()=>{
+        let count = 0;
+        for (i=0;i<boxes.length;i++) {
+            if(boxes[i].innerHTML !== ''){
+                count++
+            }
+        }
+        if (count === 9) {
+            reset()
+        }
+    }
 
     const computerGoes = () => {
         console.log('Computer: Its my turn!')
@@ -284,10 +301,9 @@ const init = () => {
             console.log(4)
             takeAnyRandomCorner();
         } else if (noFreeBox()){
-            console.log('I will do..')
-            console.log('reset')
-            console.log(5)
-            reset();
+            console.log('I see free spots..')
+            takeRandomFreeBox()
+            return false
         }
     };
 
@@ -296,22 +312,24 @@ const init = () => {
     }
 
 
+
     const doTheMagic = (event) => {
         if (event.path[0].innerHTML === ''){
-        playerGoes(event);
-        console.log('player finished ') ;
-        checkForWinner();
-        switchTurn();
-        disabler();
-        computerGoes();
-        console.log('COMP FINSIHED ');
-        checkForWinner();
-        switchTurn();
-        enabler();
-    }else{
-        alert('You cant mark here');
-    };
-}
+            playerGoes(event);
+            console.log('player finished ') ;
+            checkForWinner();
+            disabler();
+            switchTurn();
+            computerGoes();
+            console.log('COMP FINSIHED ');
+            checkForWinner();
+            switchTurn();
+            reseter()
+            enabler();
+        }else{
+            alert('You cant mark here');
+        };
+    }
 
     const enabler = () => boxes.forEach(box=>box.addEventListener('click',doTheMagic))
     const disabler = () => boxes.forEach(box=>box.removeEventListener('click',doTheMagic))
