@@ -282,7 +282,7 @@
             switchTurn();
             listenerEnabler();
         } else {
-            alert('You cant mark here');
+            
         }
     }
 
