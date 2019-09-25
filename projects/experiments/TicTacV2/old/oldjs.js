@@ -29,32 +29,8 @@
     // };
 
 
+    
 
-const init = function(){
-
-    let playerSign;
-    let computerSign;
-    let turn;
-    let wins;
-    const boxes = document.querySelectorAll('.box');
-    const winCard = document.querySelector('.winCard');
-    const loseCard = document.querySelector('.loseCard');
-    const resetButtons = document.querySelectorAll('button');
-
-    const reset = function (){
-        playerSign = 'x';
-        computerSign = 'o'
-        turn = 'x';
-        wins = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
-        boxes.forEach(box=>box.innerHTML = '');
-        winCard.classList.add('winCard') ;
-        loseCard.classList.add('loseCard') ;
-        resetButtons.forEach(button=>button.addEventListener('click',reset));
-    }
-
-    const switchTurn = function (){
-        turn === playerSign ? turn =computerSign : turn=playerSign;
-    }
 
     const writeOnTable = function(e){
         if (e !== undefined && e.nodeName === "DIV"){
@@ -290,29 +266,6 @@ const init = function(){
         console.log(wins);
     }
 
-    const computerTurn = function (e,wins){
-        if (canWin(wins)) {
-            // win()
-            return false
-
-        } else if (canBlock(wins)) {
-            block(wins)
-            return false
-        } else if (middleIsEmpty(wins)){
-            takeMiddle(wins)
-            return false
-        } else if (cornerIsEmpty(wins)){
-            takeRandomCorner(wins)
-            return false
-        } else if (anyBoxesFree(wins)){
-            takeFreeBox(wins)
-        //     return false
-        // } else if (noFreeBox()){
-        //     reset()
-        //     return false
-        }
-    }
-
 
 
 
@@ -344,8 +297,3 @@ const init = function(){
 
     reset()
     listenerEnabler()
-    
-
-}
-
-init();
