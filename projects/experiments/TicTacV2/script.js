@@ -13,6 +13,7 @@ const init = () => {
         playerSign = 'x';
         computerSign = 'o';
         turn = 'x';
+        // wins = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
         wins = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
         boxes.forEach(box=>box.innerHTML = '');
         winCard.classList.add('winCard') ;
@@ -99,7 +100,6 @@ const init = () => {
     }
 
     const youCanWinIt = () => {
-
         let winninBox;
         winninBox = wins.map(el => {
         if (el[0] === computerSign && el[1] === computerSign ||
@@ -109,7 +109,15 @@ const init = () => {
             };
         });
         winninBox = winninBox.filter(box=>box !== undefined);
-
+        if ( winninBox[0]) { 
+            if (
+                winninBox[0][0] === playerSign ||
+                winninBox[0][1] === playerSign ||
+                winninBox[0][2] === playerSign
+            ){
+                winninBox[0] = undefined;
+            }
+        }
         if (winninBox[0] !== undefined && (
             winninBox[0][0] === winninBox[0][1] ||
             winninBox[0][1] === winninBox[0][2]
@@ -135,13 +143,13 @@ const init = () => {
         });
         winninBox = winninBox.filter(box=>box !== undefined);
         winninBox = winninBox[0].filter(box=>typeof box === typeof 1 );
-        debugger
+
         writer(boxes[winninBox[0]])
     };
 
 
     const youCanBlockIt = () => {
-
+        console.log('can i block?')
         let toBeBlocked;
         toBeBlocked = wins.map((el)=>{
             if (el[0] === playerSign && el[1] === playerSign ||
@@ -150,25 +158,18 @@ const init = () => {
                     return el
                 };
             });
-        toBeBlocked = toBeBlocked.filter(box=> typeof box !== typeof undefined)
-        if(typeof toBeBlocked[0] === typeof 1 ||
-            typeof toBeBlocked[1] === typeof 1 ||
-            typeof toBeBlocked[2] === typeof 1 
-            ){
-            toBeBlocked[0] = undefined;
-            };
+        toBeBlocked = toBeBlocked.filter(box=> typeof box !== typeof undefined);
         toBeBlocked = toBeBlocked.map((box)=>{
             if(
-                typeof box[0]=== typeof '1' ||
-                typeof box[1]=== typeof '1' ||
-                typeof box[2]=== typeof '1'
+                typeof box[0] === typeof 1 ||
+                typeof box[1] === typeof 1 ||
+                typeof box[2] === typeof 1
             ){
                 return box;
             }
             }
         );
-
-        console.log('!!!!',  toBeBlocked)
+        toBeBlocked = toBeBlocked.filter(box=> typeof box !== typeof undefined);
         if (toBeBlocked[0] !== undefined){
             console.log('CAN block')
             return true;
@@ -202,7 +203,7 @@ const init = () => {
             toBeBlocked = toBeBlocked.filter(box=>typeof box !== typeof undefined)      
         }
         
-        console.log('!!',toBeBlocked);
+
         toBeBlocked = toBeBlocked[0].filter(box=>typeof box === typeof 1 );
         writer(boxes[toBeBlocked[0]]);
     };
@@ -236,17 +237,35 @@ const init = () => {
         }
     };
     const takeAnyRandomCorner = () =>{
+        
         let cornerToBeTaken;
         let emptyCorners;
         let corners = [0,2,6,8];
         emptyCorners = corners.map(corner=>boxes[corner]);
-        emptyCorners = emptyCorners.filter(corners=>corners.innerHTML==='')
-        cornerToBeTaken = Math.floor(Math.random() * (3 - 0 + 1) ) + 0;
-        writer(emptyCorners[cornerToBeTaken])
+        emptyCorners = emptyCorners.map(
+            corners=>{
+                if (corners.innerHTML === ''){
+                    return corners;
+                }
+            })
+        emptyCorners = emptyCorners.filter(corner=>typeof corner !== typeof undefined)
+        cornerToBeTaken = emptyCorners.length - 1
+        cornerToBeTaken = Math.floor(Math.random() * (cornerToBeTaken - 0 + 1) ) + 0;
+        if (emptyCorners.length > 1) {
+            writer(emptyCorners[cornerToBeTaken])
+        } else(
+            writer(emptyCorners[0])
+        )    
     }
 
     const anyBoxesAreFree =()=>{
-        console.log('here now')
+        console.log(boxes)
+    }
+
+    const noFreeBox = () =>{
+        let freeBox;
+        freeBox = boxes.filter(box=>box.innerHTML == '');
+        console.log(freebox);
     }
     
 
@@ -260,7 +279,7 @@ const init = () => {
         } else if (youCanBlockIt()) {
             console.log('I will do..')
             console.log(2);
-            debugger
+
             blockIt();
         } else if (middleIsEmpty()){
             console.log('I will do..')
@@ -288,6 +307,7 @@ const init = () => {
 
 
     const doTheMagic = (event) => {
+        if (event.path[0].innerHTML === ''){
         playerGoes(event)
         console.log('player finished ') 
         checkForWinner()
@@ -298,7 +318,10 @@ const init = () => {
         checkForWinner()
         switchTurn()
         enabler()
+    }else{
+        alert('You cant mark here');
     };
+}
 
     
     const enabler = () => {
@@ -345,15 +368,6 @@ const init = () => {
         box8.removeEventListener('click',doTheMagic);
 
     };
-
-
-
-
-
-
-
-
-
 
     reset();
     enabler();
