@@ -30,8 +30,10 @@ const init = () => {
     const writeToGameTable =(event) => {
         if (event.nodeName === 'DIV'){
             event.innerHTML = turn.toUpperCase();
+            enabler()
         }else{
             event.path[0].innerHTML = turn.toUpperCase();
+            enabler()
         };
         
     };
@@ -78,7 +80,7 @@ const init = () => {
     };
 
     const checkForWinner = () => {
-        // debugger
+
         let winninBox;
         winninBox = wins.filter(win=> typeof win[0] === typeof '1' && typeof win[1] === typeof '1' && typeof win[2] === typeof '1');
         winninBox = winninBox.map((box)=>{
@@ -97,7 +99,7 @@ const init = () => {
     }
 
     const youCanWinIt = () => {
-        // debugger 
+
         let winninBox;
         winninBox = wins.map(el => {
         if (el[0] === computerSign && el[1] === computerSign ||
@@ -121,7 +123,7 @@ const init = () => {
     };
 
     const winIt = () => {
-        // debugger
+
         console.log('about to win it!')
         let winninBox;
         winninBox = wins.map(el => {
@@ -133,13 +135,13 @@ const init = () => {
         });
         winninBox = winninBox.filter(box=>box !== undefined);
         winninBox = winninBox[0].filter(box=>typeof box === typeof 1 );
-        // debugger
+        debugger
         writer(boxes[winninBox[0]])
     };
 
 
     const youCanBlockIt = () => {
-        // debugger
+
         let toBeBlocked;
         toBeBlocked = wins.map((el)=>{
             if (el[0] === playerSign && el[1] === playerSign ||
@@ -177,7 +179,6 @@ const init = () => {
     };
 
     const blockIt = ()=>{
-        debugger;
         let toBeBlocked;
         toBeBlocked = wins.map((el)=>{
             if (el[0] === playerSign && el[1] === playerSign ||
@@ -188,8 +189,21 @@ const init = () => {
             }
         );
         toBeBlocked = toBeBlocked.filter(box=> typeof box !== typeof undefined);
+        if (toBeBlocked.length > 1){
+            toBeBlocked = toBeBlocked.map((box)=>{
+                if (
+                    typeof box[0] === typeof 1 ||
+                    typeof box[1] === typeof 1 ||
+                    typeof box[2] === typeof 1 
+                ){
+                    return box;
+                }
+            })
+            toBeBlocked = toBeBlocked.filter(box=>typeof box !== typeof undefined)      
+        }
+        
+        console.log('!!',toBeBlocked);
         toBeBlocked = toBeBlocked[0].filter(box=>typeof box === typeof 1 );
-        // debugger
         writer(boxes[toBeBlocked[0]]);
     };
 
@@ -206,7 +220,6 @@ const init = () => {
     };
     
     const takeMiddle = () =>{
-        // debugger
         writer(boxes[4]);
     };
 
@@ -229,7 +242,6 @@ const init = () => {
         emptyCorners = corners.map(corner=>boxes[corner]);
         emptyCorners = emptyCorners.filter(corners=>corners.innerHTML==='')
         cornerToBeTaken = Math.floor(Math.random() * (3 - 0 + 1) ) + 0;
-        // debugger
         writer(emptyCorners[cornerToBeTaken])
     }
 
@@ -248,6 +260,7 @@ const init = () => {
         } else if (youCanBlockIt()) {
             console.log('I will do..')
             console.log(2);
+            debugger
             blockIt();
         } else if (middleIsEmpty()){
             console.log('I will do..')
@@ -269,7 +282,7 @@ const init = () => {
     };
 
     const playerGoes = (event) => {
-        // debugger
+
         writer(event);
     }
 
