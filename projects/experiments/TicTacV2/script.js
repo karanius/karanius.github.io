@@ -13,19 +13,11 @@ const init = () => {
         playerSign = 'x';
         computerSign = 'o';
         turn = 'x';
-        // wins = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
         wins = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
         boxes.forEach(box=>box.innerHTML = '');
         winCard.classList.add('winCard') ;
         loseCard.classList.add('loseCard') ;
         resetButtons.forEach(button=>button.addEventListener('click',reset));
-    };
-
-    const debooger = () => {
-        console.log('players sign: ',playerSign);
-        console.log('computer Sign: ' ,computerSign);
-        console.log('it is the turn of: ' ,turn);
-        console.log('the current array is: ',wins);
     };
 
     const writeToGameTable =(event) => {
@@ -147,7 +139,6 @@ const init = () => {
         writer(boxes[winninBox[0]])
     };
 
-
     const youCanBlockIt = () => {
         console.log('can i block?')
         let toBeBlocked;
@@ -258,14 +249,17 @@ const init = () => {
         )    
     }
 
-    const anyBoxesAreFree =()=>{
-        console.log(boxes)
-    }
 
     const noFreeBox = () =>{
-        let freeBox;
-        freeBox = boxes.filter(box=>box.innerHTML == '');
-        console.log(freebox);
+        for (i=0;i<boxes.length;i++) {
+            if(boxes[i].innerHTML === ''){
+                console.log('free Space is left')
+                return false;
+            } else{
+                console.log('NO Space')
+                return true;
+            }
+        }
     }
     
 
@@ -289,85 +283,38 @@ const init = () => {
             console.log('I will do..')
             console.log(4)
             takeAnyRandomCorner();
-        } else if (anyBoxesAreFree()){
-            console.log('I will do..')
-            console.log(5)
-            takeAnyRandomFreeBox();
         } else if (noFreeBox()){
             console.log('I will do..')
-            console.log(6)
+            console.log('reset')
+            console.log(5)
             reset();
         }
     };
 
     const playerGoes = (event) => {
-
         writer(event);
     }
 
 
     const doTheMagic = (event) => {
         if (event.path[0].innerHTML === ''){
-        playerGoes(event)
-        console.log('player finished ') 
-        checkForWinner()
-        switchTurn()
-        disabler()
-        computerGoes()
-        console.log('COMP FINSIHED ')
-        checkForWinner()
-        switchTurn()
-        enabler()
+        playerGoes(event);
+        console.log('player finished ') ;
+        checkForWinner();
+        switchTurn();
+        disabler();
+        computerGoes();
+        console.log('COMP FINSIHED ');
+        checkForWinner();
+        switchTurn();
+        enabler();
     }else{
         alert('You cant mark here');
     };
 }
 
-    
-    const enabler = () => {
-        let box0 = document.getElementById('box0');
-        let box1 = document.getElementById('box1');
-        let box2 = document.getElementById('box2');
-        let box3 = document.getElementById('box3');
-        let box4 = document.getElementById('box4');
-        let box5 = document.getElementById('box5');
-        let box6 = document.getElementById('box6');
-        let box7 = document.getElementById('box7');
-        let box8 = document.getElementById('box8');
-
-        box0.addEventListener('click',doTheMagic);
-        box1.addEventListener('click',doTheMagic);
-        box2.addEventListener('click',doTheMagic);
-        box3.addEventListener('click',doTheMagic);
-        box4.addEventListener('click',doTheMagic);
-        box5.addEventListener('click',doTheMagic);
-        box6.addEventListener('click',doTheMagic);
-        box7.addEventListener('click',doTheMagic);
-        box8.addEventListener('click',doTheMagic);
-    };
-
-    const disabler = () => {
-        let box0 = document.getElementById('box0');
-        let box1 = document.getElementById('box1');
-        let box2 = document.getElementById('box2');
-        let box3 = document.getElementById('box3');
-        let box4 = document.getElementById('box4');
-        let box5 = document.getElementById('box5');
-        let box6 = document.getElementById('box6');
-        let box7 = document.getElementById('box7');
-        let box8 = document.getElementById('box8');
-
-        box0.removeEventListener('click',doTheMagic);
-        box1.removeEventListener('click',doTheMagic);
-        box2.removeEventListener('click',doTheMagic);
-        box3.removeEventListener('click',doTheMagic);
-        box4.removeEventListener('click',doTheMagic);
-        box5.removeEventListener('click',doTheMagic);
-        box6.removeEventListener('click',doTheMagic);
-        box7.removeEventListener('click',doTheMagic);
-        box8.removeEventListener('click',doTheMagic);
-
-    };
+    const enabler = () => boxes.forEach(box=>box.addEventListener('click',doTheMagic))
+    const disabler = () => boxes.forEach(box=>box.removeEventListener('click',doTheMagic))
 
     reset();
     enabler();
