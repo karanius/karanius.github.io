@@ -87,7 +87,7 @@ body{
 
 .box:active{
     animation-name: hov;
-    animation-duration: 0.3s;
+    animation-duration: 0.08s;
     animation-iteration-count: 1;
     animation-direction: alternate;        
 }
