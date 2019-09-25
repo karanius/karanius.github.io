@@ -28,9 +28,25 @@ const init = () => {
     };
 
     const writeToGameTable =(event) => {
-        event.path[0].innerHTML = turn.toUpperCase();
+        if (event.nodeName === 'DIV'){
+            event.innerHTML = turn.toUpperCase();
+        }else{
+            event.path[0].innerHTML = turn.toUpperCase();
+        };
+        
     };
     const writeToWinsPossibilities = (event) => {
+    if (event.nodeName === 'DIV'){
+        let sign = event.innerHTML.toLowerCase();
+        let boxNum = Number(event['id'].replace('box',''));
+        for (i=0;i<wins.length;i++){
+            for (b=0;b<wins[i].length;b++){
+                if (wins[i][b] == boxNum ){
+                    wins[i][b] = sign;
+                };
+            };
+        };
+    }else{
         let sign = event.path[0].innerHTML.toLowerCase();
         let boxNum = Number(event.path[0]['id'].replace('box',''));
         for (i=0;i<wins.length;i++){
@@ -38,8 +54,9 @@ const init = () => {
                 if (wins[i][b] == boxNum ){
                     wins[i][b] = sign;
                 };
-            }
-        }
+            };
+        };
+    }
     };
 
     const writer = (event) =>{
@@ -50,37 +67,221 @@ const init = () => {
         turn === playerSign ? turn = computerSign : turn = playerSign;
     };
 
+    const endGame = (winner) => {
+        if (winner === 'x'){
+            console.log('winner is x')
+            winCard.classList.remove('winCard')
+        } else if (winner === 'o') {
+            console.log('winner is o')
+            loseCard.classList.remove('loseCard') ;
+        };
+    };
+
     const checkForWinner = () => {
-        console.log('checking to see if there is a winner!?')
+        // debugger
+        let winninBox;
+        winninBox = wins.filter(win=> typeof win[0] === typeof '1' && typeof win[1] === typeof '1' && typeof win[2] === typeof '1');
+        winninBox = winninBox.map((box)=>{
+            if (box[0] === box[1] &&
+                box[1] === box[2]){
+                    return box
+                }
+            }
+        )
+        winninBox = winninBox.filter(box=>typeof box !== typeof undefined)
+        if (winninBox[0] !== undefined){
+            endGame(winninBox[0][0]);
+        }else{
+            console.log('There is no Winners yet')
+        };
     }
 
+    const youCanWinIt = () => {
+        // debugger 
+        let winninBox;
+        winninBox = wins.map(el => {
+        if (el[0] === computerSign && el[1] === computerSign ||
+            el[1] === computerSign && el[2] === computerSign ||
+            el[0] === computerSign && el[2] === computerSign ){
+                return el
+            };
+        });
+        winninBox = winninBox.filter(box=>box !== undefined);
+
+        if (winninBox[0] !== undefined && (
+            winninBox[0][0] === winninBox[0][1] ||
+            winninBox[0][1] === winninBox[0][2]
+            )){
+            console.log('CAN win')
+            return true;
+        } else{
+            console.log('cant win')
+            return false;
+        };
+    };
+
+    const winIt = () => {
+        // debugger
+        console.log('about to win it!')
+        let winninBox;
+        winninBox = wins.map(el => {
+        if (el[0] === computerSign && el[1] === computerSign ||
+            el[1] === computerSign && el[2] === computerSign ||
+            el[0] === computerSign && el[2] === computerSign ){
+                return el
+            };
+        });
+        winninBox = winninBox.filter(box=>box !== undefined);
+        winninBox = winninBox[0].filter(box=>typeof box === typeof 1 );
+        // debugger
+        writer(boxes[winninBox[0]])
+    };
+
+
+    const youCanBlockIt = () => {
+        // debugger
+        let toBeBlocked;
+        toBeBlocked = wins.map((el)=>{
+            if (el[0] === playerSign && el[1] === playerSign ||
+                el[1] === playerSign && el[2] === playerSign ||
+                el[0] === playerSign && el[2] === playerSign ){
+                    return el
+                };
+            });
+        toBeBlocked = toBeBlocked.filter(box=> typeof box !== typeof undefined)
+        if(typeof toBeBlocked[0] === typeof 1 ||
+            typeof toBeBlocked[1] === typeof 1 ||
+            typeof toBeBlocked[2] === typeof 1 
+            ){
+            toBeBlocked[0] = undefined;
+            };
+        toBeBlocked = toBeBlocked.map((box)=>{
+            if(
+                typeof box[0]=== typeof '1' ||
+                typeof box[1]=== typeof '1' ||
+                typeof box[2]=== typeof '1'
+            ){
+                return box;
+            }
+            }
+        );
+
+        console.log('!!!!',  toBeBlocked)
+        if (toBeBlocked[0] !== undefined){
+            console.log('CAN block')
+            return true;
+        } else{
+            console.log('cant block')
+            return false;
+        };
+    };
+
+    const blockIt = ()=>{
+        debugger;
+        let toBeBlocked;
+        toBeBlocked = wins.map((el)=>{
+            if (el[0] === playerSign && el[1] === playerSign ||
+                el[1] === playerSign && el[2] === playerSign ||
+                el[0] === playerSign && el[2] === playerSign ){
+                    return el
+                };
+            }
+        );
+        toBeBlocked = toBeBlocked.filter(box=> typeof box !== typeof undefined);
+        toBeBlocked = toBeBlocked[0].filter(box=>typeof box === typeof 1 );
+        // debugger
+        writer(boxes[toBeBlocked[0]]);
+    };
+
+    const middleIsEmpty = () => {
+        let emptyMiddle;
+        emptyMiddle = (typeof wins[1][1] === typeof 1);
+        if (emptyMiddle) {
+            console.log('middle IS empty')
+            return true;
+        } else{
+            console.log('CANT take Middle')
+            return false;
+        };
+    };
+    
+    const takeMiddle = () =>{
+        // debugger
+        writer(boxes[4]);
+    };
+
+    const anyCornerIsEmpty = () => {
+        if (
+            boxes[0].innerHTML === '' ||
+            boxes[2].innerHTML=== '' ||
+            boxes[6].innerHTML=== '' ||
+            boxes[8].innerHTML=== '' 
+        ){
+            return true;
+        } else {
+            return false;
+        }
+    };
+    const takeAnyRandomCorner = () =>{
+        let cornerToBeTaken;
+        let emptyCorners;
+        let corners = [0,2,6,8];
+        emptyCorners = corners.map(corner=>boxes[corner]);
+        emptyCorners = emptyCorners.filter(corners=>corners.innerHTML==='')
+        cornerToBeTaken = Math.floor(Math.random() * (3 - 0 + 1) ) + 0;
+        // debugger
+        writer(emptyCorners[cornerToBeTaken])
+    }
+
+    const anyBoxesAreFree =()=>{
+        console.log('here now')
+    }
+    
+
     const computerGoes = () => {
+        console.log('Computer: Its my turn!')
+        console.log('Im thinking....')
         if (youCanWinIt()) {
+            console.log('I will do..')
+            console.log(1)
             winIt();
         } else if (youCanBlockIt()) {
+            console.log('I will do..')
+            console.log(2);
             blockIt();
         } else if (middleIsEmpty()){
+            console.log('I will do..')
+            console.log(3)
             takeMiddle();
         } else if (anyCornerIsEmpty()){
+            console.log('I will do..')
+            console.log(4)
             takeAnyRandomCorner();
         } else if (anyBoxesAreFree()){
+            console.log('I will do..')
+            console.log(5)
             takeAnyRandomFreeBox();
         } else if (noFreeBox()){
+            console.log('I will do..')
+            console.log(6)
             reset();
         }
     };
 
     const playerGoes = (event) => {
+        // debugger
         writer(event);
     }
 
 
     const doTheMagic = (event) => {
         playerGoes(event)
+        console.log('player finished ') 
         checkForWinner()
         switchTurn()
         disabler()
         computerGoes()
+        console.log('COMP FINSIHED ')
         checkForWinner()
         switchTurn()
         enabler()
