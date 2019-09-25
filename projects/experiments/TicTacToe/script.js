@@ -57,15 +57,17 @@ const init = function(){
     }
 
     const writeOnTable = function(e){
-        if (e.nodeName === "DIV"){
+        console.log('thsi is the value of e',e)
+        if (e !== undefined && e.nodeName === "DIV"){
             e.innerHTML = turn.toUpperCase()
-        }else{
+        }else if (e !== undefined) {
             e.path[0].innerHTML = turn.toUpperCase()
         }
     }
 
     const writeToWinTable = function (e,wins){
-        if (e.nodeName === "DIV"){
+        console.log('about to writeTOWinTable')
+        if (e !== undefined && e.nodeName === "DIV"){
             for (i=0; i<wins.length; i++) {
                 for (b=0; b<wins[i].length; b++){
                     if (wins[i][b] === Number(e['id'][3])) {
@@ -73,7 +75,7 @@ const init = function(){
                     }
                 }
             }
-        } else {
+        } else if (e !== undefined) {
             for (i=0; i<wins.length; i++) {
                 for (b=0; b<wins[i].length; b++){
                     // console.log(wins[i][b],e.path[0]['id'][3],wins[i][b] === Number(e.path[0]['id'][3]))
@@ -86,19 +88,22 @@ const init = function(){
     }
 
     const checkForWinner = function (wins){
+        console.log('here, about to check')
         for (i=0; i<wins.length; i++) {
-        if (wins[i][0]===wins[i][1] && wins[i][1] === wins[i][2]){
-            let winner = wins[i][0];
-            if (winner === 'x'){
-                winCard.classList.remove('winCard')
-            } else if (winner === 'o') {
-                loseCard.classList.remove('loseCard') ;
+            console.log('im inside the loop',wins[i])
+            if (wins[i][0]===wins[i][1] && wins[i][1] === wins[i][2]){
+                let winner = wins[i][0];
+                console.log(winner,' IS THE WINNNEERR!!!!!!!!!!!!!!')
+                if (winner === 'x'){
+                    winCard.classList.remove('winCard')
+                } else if (winner === 'o') {
+                    loseCard.classList.remove('loseCard') ;
+                }
+                return true;
+            } else {
+                console.log('no winners yet')
+                // return false
             }
-            return true;
-        } else {
-            console.log('no winners yet')
-            return false
-        }
         }
     }
 
@@ -200,21 +205,38 @@ const init = function(){
     // }
 
 
+
+
+    const win = (winBox,wins) =>{
+        console.log('about to win now..', winBox)
+        let winwin = winBox.filter((box)=>typeof box !== typeof '1')
+        console.log(boxes[winwin[0]])
+        writeToWinTable(boxes[winwin[0]],wins)
+        // writeOnTable(boxes[winwin[0]])
+        console.log('I WON!')
+    }
+
+
     const canWin = (wins) => {
-        let numb
+        let numb;
         for (i=0;i<wins.length;i++){
             if (wins[i][0]===wins[i][1] || wins[i][1] === wins[i][2] || wins[i][0] == wins[i][2]){
-                numb = wins[i].filter((n)=>typeof n == typeof 'a')
-                console.log(numb)
-                if (numb[0] === computerSign) {
-                    console.log('Can WIn!')
+                console.log('can win ???',wins[i]);
+                if (wins[i][0] !== playerSign &&
+                    wins[i][1] !== playerSign &&
+                    wins[i][2] !== playerSign
+                    ) {
+                    console.log('Yes, I can win')
+                    console.log('what is the value of ' + wins[i]);
+                    win(wins[i],wins)
+                    return false
                 } else {
                     console.log('can NOT win')
                 }
             }
         }
-        return false;
     }
+
 
     const canBlock = (wins) => {
         for (i=0;i<wins.length;i++){
@@ -278,14 +300,15 @@ const init = function(){
 
     const computerTurn = function (e,wins){
         if (canWin(wins)) {
-            win()
-            // return false
+            console.log('game should end now')
+            // win()
+            return false
         } else if (canBlock(wins)) {
             block(wins)
-            // return false
+            return false
         } else if (middleIsEmpty(wins)){
             takeMiddle(wins)
-        //     return false
+            return false
         } else if (cornerIsEmpty(wins)){
             takeRandomCorner(wins)
         //     return false
@@ -310,6 +333,7 @@ const init = function(){
             switchTurn();
             listenerDisabler();
             computerTurn(e,wins);
+            console.log(wins)
             checkForWinner(wins)
             switchTurn();
             listenerEnabler();
