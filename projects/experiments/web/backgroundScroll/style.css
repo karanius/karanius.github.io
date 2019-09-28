@@ -19,6 +19,7 @@ body{
     flex-direction: column;
 }
 
+
 .bg{
     height:100vh;
     width: 100vw;
@@ -29,6 +30,16 @@ body{
 
 }
 
+.navbar{
+    background: rgba(255, 255, 255, 0.932);
+    width: 100vw;
+    height: 75px;
+    position: fixed;
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 nav{
     background: rgba(255, 255, 255, 0.932);
