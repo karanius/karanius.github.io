@@ -1,1 +1,1 @@
-webLink: https://karanius.github.io/
+webLink: https://karanius.github.io/home/
