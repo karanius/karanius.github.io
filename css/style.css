@@ -61,6 +61,7 @@ body{
     font-size: 5vh;
     color: rgb(255, 255, 255);
     text-shadow: 0 2px 10px black , 0 0 4px white;
+
 }
 
 #menu > ul > li:hover{
@@ -263,4 +264,12 @@ body{
 
 .container{
     transform: translateX(0);
+}
+
+
+.homeLink{
+  text-decoration: none;
+  color: rgb(255, 249, 158);
+  text-align: center;
+padding: 30px
 }
