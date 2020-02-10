@@ -1,0 +1,32 @@
+.home-page {
+  animation: colorchange 50s infinite;
+  width: 100%;
+  position: relative;
+}
+
+@keyframes colorchange
+{
+  0%   {background: #ff8686;}
+  9%   {background: #dc3b3b;}
+  18%   {background: #dc3bc1;}
+  27%   {background: #973bdc;}
+  36%   {background: #453bdc;}
+  45%   {background: #3ba8dc;}
+  54%   {background: #3bdcbe;}
+  63%   {background: #3bdc6d;}
+  72%   {background: #4cdc3b;}
+  81%   {background: #a6dc3b;}
+  90%   {background: #dcb93b;}
+  100%   {background: #ff8686;}
+}
+
+
+
+
+
+
+
+
+
+
+
